@@ -1,20 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { SearchOptionsDto } from './dto';
-import { TomTomService } from 'src/integrations/tomtom/tomtom.service';
-
-// TODO: put in a types file
+import { TomTomService } from '../integrations/tomtom/tomtom.service';
+import { mapSearchResponse as mapSearchResponse } from './mappers';
+import { SearchRequest } from './types';
 
 @Injectable({})
 export class SearchService {
   constructor(private readonly tomTomService: TomTomService) {}
-  async search({
-    searchQuery,
-    options,
-  }: {
-    searchQuery: string;
-    options: SearchOptionsDto;
-  }) {
-    const response = await this.tomTomService.search({ searchQuery, options });
-    return response;
+
+  async search({ searchQuery, options }: SearchRequest) {
+    const searchResponse = await this.tomTomService.search({
+      searchQuery,
+      options,
+    });
+
+    return mapSearchResponse(searchResponse);
   }
 }

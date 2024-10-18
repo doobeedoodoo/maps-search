@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SearchController } from './search.controller';
 import { SearchService } from './search.service';
-import { TomTomModule } from 'src/integrations/tomtom/tomtom.module';
+import { TomTomModule } from '../integrations/tomtom/tomtom.module'; // TODO: consider ts config paths
 
 @Module({
   imports: [TomTomModule],
