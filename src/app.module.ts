@@ -4,6 +4,10 @@ import { TomTomModule } from './integrations/tomtom/tomtom.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot({}), SearchModule, TomTomModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    SearchModule,
+    TomTomModule,
+  ],
 })
 export class AppModule {}
