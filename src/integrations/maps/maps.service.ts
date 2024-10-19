@@ -1,10 +1,12 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { HttpStatusCode } from 'axios';
 import { SearchRequest } from 'src/search/types';
 
 @Injectable()
 export class MapsService {
+  private logger = new Logger(MapsService.name);
+
   constructor(private configService: ConfigService) {}
 
   private handleError(error: any) {
@@ -12,7 +14,7 @@ export class MapsService {
     const statusText = error.response?.statusText;
     const errorText = error.response?.data?.errorText;
 
-    // TODO: add logger
+    this.logger.error(`${statusCode} - ${errorText || statusText}`);
 
     throw new HttpException(
       errorText || statusText || 'Internal server error',
@@ -32,7 +34,7 @@ export class MapsService {
         `${tomTomApiUrl}/search/2/search/${searchQuery}.json'`,
         {
           params: {
-            key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
+            // key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
             limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
             countrySet,
           },
