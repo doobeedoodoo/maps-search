@@ -4,6 +4,10 @@ import { SearchParametersDto, SearchOptionsDto } from './dto';
 import { JsonApiSearchResponse, SearchResponse } from './types';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { successSchema } from './schema';
+import { invalidSearchSchema } from './schema/error-invalid-search.schema';
+import { resourceForbiddenSchema } from './schema/error-forbidden.schema';
+import { internalServerErrorSchema } from './schema/error-server.schema';
 
 @Controller('search')
 export class SearchController {
@@ -14,65 +18,22 @@ export class SearchController {
   @ApiResponse({
     status: 200,
     description: 'Search successful',
-    schema: {
-      type: 'object',
-      properties: {
-        meta: {
-          type: 'object',
-          properties: {
-            query: {
-              type: 'string',
-              example: '1 charlotte street',
-            },
-            count: {
-              type: 'number',
-              example: 100,
-            },
-          },
-        },
-        data: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              placeId: {
-                type: 'string',
-                example: 'dK02J2NUGekCcSf9MtpuOA',
-              },
-              freeformAddress: {
-                type: 'string',
-                example: '1 Charlotte Street, Sunshine West, VIC, 3020',
-              },
-              streetNumber: {
-                type: 'string',
-                example: '1',
-              },
-              municipality: {
-                type: 'string',
-                example: 'Melbourne',
-              },
-              countryCode: {
-                type: 'string',
-                example: 'AU',
-              },
-              country: {
-                type: 'string',
-                example: 'Australia',
-              },
-            },
-          },
-        },
-      },
-    },
+    schema: successSchema,
   })
-  @ApiResponse({ status: 400, description: 'Invalid query provided' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid search',
+    schema: invalidSearchSchema,
+  })
   @ApiResponse({
     status: 403,
     description: 'Accessing the resource is forbidden',
+    schema: resourceForbiddenSchema,
   })
   @ApiResponse({
     status: 500,
     description: 'Application failed to process the request',
+    schema: internalServerErrorSchema,
   })
   @Get(':searchQuery')
   @UseFilters(HttpExceptionFilter)
