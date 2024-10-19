@@ -10,13 +10,17 @@ export class MapsService {
   async search({ searchQuery, options }: SearchRequest) {
     const tomTomApiUrl = this.configService.get('TOMTOM_API_URL');
     const countrySet = this.configService.get('COUNTRIES');
+    const DEFAULT_SEARCH_RESULTS_LIMIT = this.configService.get(
+      'DEFAULT_SEARCH_RESULTS_LIMIT',
+    );
+
     try {
       const response = await axios.get(
-        `${tomTomApiUrl}/search/2/search/${searchQuery}.json'`, // TODO: put .json in default
+        `${tomTomApiUrl}/search/2/search/${searchQuery}.json'`,
         {
           params: {
             key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
-            limit: options.limit, // TODO: add default. 100?
+            limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
             countrySet,
           },
         },

@@ -7,7 +7,6 @@ export class SearchParametersDto {
   searchQuery: string;
 }
 
-// TODO: add other options here
 export class SearchOptionsDto {
   @IsOptional()
   @IsNumber()
