@@ -7,11 +7,11 @@ export type SearchRequest = {
 
 export type SearchResponse = {
   placeId: string;
-  freeformAddress: string | null;
+  freeformAddress: string;
   streetNumber: string | null;
-  municipality: string | null;
-  countryCode: string | null;
-  country: string | null;
+  municipality: string;
+  countryCode: string;
+  country: string;
 };
 
 export type JsonApiSearchResponse = {

@@ -10,11 +10,11 @@ export const mapSearchResponse = (searchResponse): SearchResponse[] => {
 
     return {
       placeId: result.id,
-      freeformAddress: address?.freeformAddress || null,
+      freeformAddress: address?.freeformAddress,
       streetNumber: address?.streetNumber || null,
-      municipality: address?.municipality || null,
-      countryCode: address?.countryCode || null,
-      country: address?.country || null,
+      municipality: address?.municipality,
+      countryCode: address?.countryCode,
+      country: address?.country,
     };
   });
 };
