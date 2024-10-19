@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SearchController } from './search.controller';
 import { SearchService } from './search.service';
-import { TomTomModule } from '../integrations/tomtom/tomtom.module'; // TODO: consider ts config paths
+import { MapsModule } from '../integrations/maps/maps.module'; // TODO: consider ts config paths
 
 @Module({
-  imports: [TomTomModule],
+  imports: [MapsModule],
   controllers: [SearchController],
   providers: [SearchService],
 })

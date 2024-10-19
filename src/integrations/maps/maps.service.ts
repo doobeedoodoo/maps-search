@@ -4,7 +4,7 @@ import axios from 'axios';
 import { SearchRequest } from 'src/search/types';
 
 @Injectable()
-export class TomTomService {
+export class MapsService {
   constructor(private configService: ConfigService) {}
 
   async search({ searchQuery, options }: SearchRequest) {
