@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class SearchParametersDto {
   @IsNotEmpty()
@@ -7,7 +8,8 @@ export class SearchParametersDto {
 }
 
 export class SearchOptionsDto {
-  // TODO: should be a number. parse string to int?
+  @IsNumber()
+  @Type(() => Number)
   @IsOptional()
   limit: number;
 }

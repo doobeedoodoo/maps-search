@@ -1,7 +1,9 @@
 export const mapSearchResponse = (searchResponse) => {
-  const { results } = searchResponse;
+  if (!searchResponse || !searchResponse.results) {
+    return [];
+  }
 
-  return results.map((result) => {
+  return searchResponse.results.map((result) => {
     const { address } = result;
 
     return {
