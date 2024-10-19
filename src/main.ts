@@ -12,8 +12,6 @@ import { mapValidationErrors } from './utils';
 
 const DEFAULT_PORT = 3000;
 
-// TODO: readme
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['warn', 'error'],
@@ -21,9 +19,8 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      exceptionFactory: (validationErrors: ValidationError[] = []) => {
-        return new BadRequestException(mapValidationErrors(validationErrors));
-      },
+      exceptionFactory: (validationErrors: ValidationError[] = []) =>
+        new BadRequestException(mapValidationErrors(validationErrors)),
     }),
   );
   app.useGlobalFilters(new HttpExceptionFilter());
