@@ -1,11 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
 import { SearchRequest } from 'src/search/types';
 
 @Injectable()
 export class MapsService {
   constructor(private configService: ConfigService) {}
+
+  private handleError(error: any) {
+    const statusCode = error.response?.status;
+    const statusText = error.response?.statusText;
+    const errorText = error.response?.data?.errorText;
+
+    // TODO: add logger
+
+    throw new HttpException(
+      errorText || statusText || 'Internal server error',
+      statusCode || HttpStatusCode.InternalServerError,
+    );
+  }
 
   async search({ searchQuery, options }: SearchRequest) {
     const tomTomApiUrl = this.configService.get('TOMTOM_API_URL');
@@ -28,7 +41,7 @@ export class MapsService {
 
       return response.data;
     } catch (error) {
-      console.log('error: ', error);
+      this.handleError(error);
     }
   }
 }
