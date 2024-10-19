@@ -11,8 +11,8 @@ export class MapsService {
 
   private handleError(error: any) {
     const statusCode = error.response?.status;
-    const statusText = error.response?.statusText;
     const errorText = error.response?.data?.errorText;
+    const statusText = error.response?.statusText;
 
     this.logger.error(`${statusCode} - ${errorText || statusText}`);
 
@@ -34,8 +34,9 @@ export class MapsService {
         `${tomTomApiUrl}/search/2/search/${searchQuery}.json'`,
         {
           params: {
-            // key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
-            limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
+            key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
+            // limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
+            limit: 'abc',
             countrySet,
           },
         },
