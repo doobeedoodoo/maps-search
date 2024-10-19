@@ -4,10 +4,12 @@ import { SearchParametersDto, SearchOptionsDto } from './dto';
 import { JsonApiSearchResponse, SearchResponse } from './types';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { successSchema } from './schema';
-import { invalidSearchSchema } from './schema/error-invalid-search.schema';
-import { resourceForbiddenSchema } from './schema/error-forbidden.schema';
-import { internalServerErrorSchema } from './schema/error-server.schema';
+import {
+  internalServerErrorSchema,
+  invalidSearchSchema,
+  resourceForbiddenSchema,
+  successSchema,
+} from './schema';
 
 @Controller('search')
 export class SearchController {

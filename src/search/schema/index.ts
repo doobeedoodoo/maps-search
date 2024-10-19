@@ -1,2 +1,4 @@
 export { successSchema } from './sucess.schema';
-export { invalidSearchSchema as errorSchema } from './error-invalid-search.schema';
+export { invalidSearchSchema } from './error-invalid-search.schema';
+export { resourceForbiddenSchema } from './error-forbidden.schema';
+export { internalServerErrorSchema } from './error-server.schema';
