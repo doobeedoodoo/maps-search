@@ -24,6 +24,7 @@ export class MapsService {
 
   async search({ searchQuery, options }: SearchRequest) {
     const tomTomApiUrl = this.configService.get('TOMTOM_API_URL');
+    const tomTomApiKey = this.configService.get('TOMTOM_API_KEY');
     const countrySet = this.configService.get('COUNTRIES');
     const DEFAULT_SEARCH_RESULTS_LIMIT = this.configService.get(
       'DEFAULT_SEARCH_RESULTS_LIMIT',
@@ -34,7 +35,7 @@ export class MapsService {
         `${tomTomApiUrl}/search/2/search/${searchQuery}.json'`,
         {
           params: {
-            key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
+            key: tomTomApiKey,
             limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
             countrySet,
           },
