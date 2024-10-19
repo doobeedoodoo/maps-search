@@ -1,4 +1,6 @@
-export const mapSearchResponse = (searchResponse) => {
+import { SearchResponse } from '../types';
+
+export const mapSearchResponse = (searchResponse): SearchResponse[] => {
   if (!searchResponse || !searchResponse.results) {
     return [];
   }
@@ -8,11 +10,11 @@ export const mapSearchResponse = (searchResponse) => {
 
     return {
       placeId: result.id,
+      freeformAddress: address?.freeformAddress || null,
       streetNumber: address?.streetNumber || null,
+      municipality: address?.municipality || null,
       countryCode: address?.countryCode || null,
       country: address?.country || null,
-      freeformAddress: address?.freeformAddress || null,
-      municipality: address?.municipality || null,
     };
   });
 };
