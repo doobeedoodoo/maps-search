@@ -1,8 +1,7 @@
-import { Controller, Get, Param, Query, UseFilters } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
 import { SearchService } from './search.service';
 import { SearchParametersDto, SearchOptionsDto } from './dto';
-import { JsonApiSearchResponse, SearchResponse } from './types';
-import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+import { SearchResponse } from './types';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   internalServerErrorSchema,
@@ -10,8 +9,10 @@ import {
   resourceForbiddenSchema,
   successSchema,
 } from './schema';
+import { ResponseInterceptor } from 'src/interceptors';
 
 @Controller('search')
+@UseInterceptors(ResponseInterceptor)
 export class SearchController {
   constructor(private searchService: SearchService) {}
 
@@ -38,11 +39,10 @@ export class SearchController {
     schema: internalServerErrorSchema,
   })
   @Get(':searchQuery')
-  @UseFilters(HttpExceptionFilter)
   async search(
     @Param() searchParameters: SearchParametersDto,
     @Query() options: SearchOptionsDto,
-  ): Promise<JsonApiSearchResponse> {
+  ): Promise<SearchResponse[]> {
     const { searchQuery } = searchParameters;
 
     const searchResponse: SearchResponse[] = await this.searchService.search({
@@ -50,12 +50,6 @@ export class SearchController {
       options,
     });
 
-    return {
-      meta: {
-        query: searchParameters.searchQuery,
-        count: searchResponse.length,
-      },
-      data: searchResponse,
-    };
+    return searchResponse;
   }
 }
