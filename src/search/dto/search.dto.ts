@@ -4,7 +4,7 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class SearchParametersDto {
   @ApiProperty({
-    example: 'charlotte street',
+    example: '1 charlotte street',
     description: 'The search query',
   })
   @IsNotEmpty()

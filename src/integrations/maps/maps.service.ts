@@ -13,11 +13,12 @@ export class MapsService {
     const statusCode = error.response?.status;
     const errorText = error.response?.data?.errorText;
     const statusText = error.response?.statusText;
+    const message = errorText || statusText || 'Internal server error';
 
-    this.logger.error(`${statusCode} - ${errorText || statusText}`);
+    this.logger.error(`${statusCode} - ${message}`);
 
     throw new HttpException(
-      errorText || statusText || 'Internal server error',
+      message,
       statusCode || HttpStatusCode.InternalServerError,
     );
   }
