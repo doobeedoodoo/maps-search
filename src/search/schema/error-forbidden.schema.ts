@@ -13,7 +13,7 @@ export const resourceForbiddenSchema = {
       type: 'string',
       example: '/search/1%20charlotte%20street',
     },
-    message: {
+    detail: {
       type: 'string',
       example: 'Forbidden. You do not have permission to access this resource.',
     },

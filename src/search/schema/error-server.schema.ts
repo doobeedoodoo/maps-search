@@ -13,7 +13,7 @@ export const internalServerErrorSchema = {
       type: 'string',
       example: '/search/1%20charlotte%20street',
     },
-    message: {
+    detail: {
       type: 'string',
       example: 'Internal server error.',
     },

@@ -13,7 +13,7 @@ export const invalidSearchSchema = {
       type: 'string',
       example: '/search/1%20charlotte%20street',
     },
-    message: {
+    detail: {
       type: 'string',
       example: 'Invalid limit parameter. Limit should be an integer.',
     },
