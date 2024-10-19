@@ -35,8 +35,7 @@ export class MapsService {
         {
           params: {
             key: 'Oyb0npJAVdRwDauqpFez7zKCy2euUYql', // TODO: store somewhere safe
-            // limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
-            limit: 'abc',
+            limit: options.limit || DEFAULT_SEARCH_RESULTS_LIMIT,
             countrySet,
           },
         },
