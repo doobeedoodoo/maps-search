@@ -15,6 +15,18 @@ Welcome to **maps-search**! This project enables users to search for addresses a
 $ yarn install
 ```
 
+## Environment variables
+
+An .env.dist file that contains the environment variables required is included.
+
+```bash
+TOMTOM_API_URL="https://api.tomtom.com"
+TOMTOM_API_KEY="replace-me"
+COUNTRIES="AU"
+DEFAULT_SEARCH_RESULTS_LIMIT=100
+PORT=3000
+```
+
 ## Compile and run the project
 
 ```bash
@@ -40,6 +52,17 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Deployment
+
+A deployed instance can be found at https://maps-search-production.up.railway.app. 
+
+The swagger page can be accessed at https://maps-search-production.up.railway.app/api.
+
+Example queries:
+
+https://maps-search-production.up.railway.app/search/1%20charlotte%20street
+https://maps-search-production.up.railway.app/search/brisbane%20city?limit=10
 
 ## Stay in touch
 
