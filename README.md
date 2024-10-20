@@ -6,8 +6,8 @@ Welcome to **maps-search**! This project enables users to search for addresses a
 
 - **Partial Address Search**: Supports fuzzy query-based relevant addresses and POIs.
 - **Detailed Address Information**: Includes detailed information about addresses.
-- **TomTom API Integration**: Utilizes TomTom API for accurate and up-to-date search results.
-- **Built with NestJS**: Enjoy a robust and scalable architecture, ensuring a seamless user experience.
+- **TomTom API Integration**: Utilizes [TomTom API](https://developer.tomtom.com/search-api/documentation/search-service/fuzzy-search) for accurate and up-to-date search results.
+- **Built with [NestJS](https://nestjs.com/)**: Enjoy a robust and scalable architecture, ensuring a seamless user experience.
 
 ## Project setup
 
