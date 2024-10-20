@@ -9,7 +9,7 @@ import {
   resourceForbiddenSchema,
   successSchema,
 } from './schema';
-import { ResponseInterceptor } from 'src/interceptors';
+import { ResponseInterceptor } from '../interceptors';
 
 @Controller('search')
 @UseInterceptors(ResponseInterceptor)

@@ -1,6 +1,5 @@
 import { SearchResponse } from '../types';
 
-// TODO: zod
 export const mapSearchResponse = (searchResponse): SearchResponse[] => {
   if (!searchResponse || !searchResponse.results) {
     return [];
