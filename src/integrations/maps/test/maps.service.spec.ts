@@ -28,7 +28,7 @@ const createMockModule = async () => {
 };
 
 describe('maps service', () => {
-  it('should return results from tom tom api', async () => {
+  it('should call tom tom api search endpoint', async () => {
     const mapsService = (await createMockModule()).get<MapsService>(
       MapsService,
     );
