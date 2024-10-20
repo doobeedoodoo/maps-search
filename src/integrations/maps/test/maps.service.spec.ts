@@ -21,17 +21,17 @@ const createMockModule = async (mockConfig) => {
 };
 
 describe('maps service', () => {
+  const searchRequest = {
+    searchQuery: '1%20charlotte%20street',
+    options: { limit: 1 },
+  };
+
   it('should call tom tom api search endpoint', async () => {
     const mapsService = (await createMockModule(mockConfig)).get<MapsService>(
       MapsService,
     );
 
     jest.spyOn(axios, 'get').mockResolvedValue(mockTomTomApiResponseData);
-
-    const searchRequest = {
-      searchQuery: '1%20charlotte%20street',
-      options: { limit: 1 },
-    };
 
     const results = await mapsService.search(searchRequest);
 
@@ -52,11 +52,6 @@ describe('maps service', () => {
 
     jest.spyOn(axios, 'get').mockRejectedValue(new Error('error'));
 
-    const searchRequest = {
-      searchQuery: '1%20charlotte%20street',
-      options: { limit: 1 },
-    };
-
     expect(mapsService.search(searchRequest)).rejects.toThrow('error');
   });
 
@@ -73,11 +68,6 @@ describe('maps service', () => {
     const mapsService = (
       await createMockModule(incompleteMockConfig)
     ).get<MapsService>(MapsService);
-
-    const searchRequest = {
-      searchQuery: '1%20charlotte%20street',
-      options: { limit: 1 },
-    };
 
     expect(mapsService.search(searchRequest)).rejects.toThrow(
       'TomTom API url / path is missing in config',
@@ -96,11 +86,6 @@ describe('maps service', () => {
     const mapsService = (
       await createMockModule(incompleteMockConfig)
     ).get<MapsService>(MapsService);
-
-    const searchRequest = {
-      searchQuery: '1%20charlotte%20street',
-      options: { limit: 1 },
-    };
 
     expect(mapsService.search(searchRequest)).rejects.toThrow(
       'TomTom API key is missing in config',
