@@ -61,8 +61,8 @@ The swagger page can be accessed at https://maps-search-production.up.railway.ap
 
 Example queries:
 
-https://maps-search-production.up.railway.app/search/1%20charlotte%20street
-https://maps-search-production.up.railway.app/search/brisbane%20city?limit=10
+- https://maps-search-production.up.railway.app/search/1%20charlotte%20street
+- https://maps-search-production.up.railway.app/search/brisbane%20city?limit=10
 
 ## Stay in touch
 
