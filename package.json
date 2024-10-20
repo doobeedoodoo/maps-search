@@ -71,7 +71,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts",
       "!src/(dev|pactum|libs|swagger)/**",
-      "!src/main.ts"
+      "!src/main.ts",
+      "!src/config/**"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"

@@ -4,32 +4,25 @@ import { Test } from '@nestjs/testing';
 import axios from 'axios';
 import { MapsService } from '../maps.service';
 import { mockTomTomApiResponseData } from '../../../mocks/tomtom.mocks';
+import { mockConfig } from '../mocks/config.mock';
 
-const mockConfigService = () =>
+const mockConfigService = (mockConfig) =>
   createMock<ConfigService>({
-    get: (configKey) => {
-      const mockConfig = {
-        TOMTOM_API_URL: 'https://api.tomtom.com',
-        TOMTOM_API_KEY: 'mockApiKey',
-        COUNTRIES: 'AU',
-        DEFAULT_SEARCH_RESULTS_LIMIT: 10,
-      };
-      return mockConfig[configKey];
-    },
+    get: (configKey) => mockConfig[configKey],
   });
 
-const createMockModule = async () => {
+const createMockModule = async (mockConfig) => {
   return await Test.createTestingModule({
     providers: [
       MapsService,
-      { provide: ConfigService, useValue: mockConfigService() },
+      { provide: ConfigService, useValue: mockConfigService(mockConfig) },
     ],
   }).compile();
 };
 
 describe('maps service', () => {
   it('should call tom tom api search endpoint', async () => {
-    const mapsService = (await createMockModule()).get<MapsService>(
+    const mapsService = (await createMockModule(mockConfig)).get<MapsService>(
       MapsService,
     );
 
@@ -53,7 +46,7 @@ describe('maps service', () => {
   });
 
   it('should handle error response from tom tom api', async () => {
-    const mapsService = (await createMockModule()).get<MapsService>(
+    const mapsService = (await createMockModule(mockConfig)).get<MapsService>(
       MapsService,
     );
 
@@ -65,5 +58,52 @@ describe('maps service', () => {
     };
 
     expect(mapsService.search(searchRequest)).rejects.toThrow('error');
+  });
+
+  it('should handle scenario where tomtom url / path is not set properly', async () => {
+    const incompleteMockConfig = {
+      ...mockConfig,
+      tomtom: {
+        ...mockConfig.tomtom,
+        url: '',
+        path: '',
+      },
+    };
+
+    const mapsService = (
+      await createMockModule(incompleteMockConfig)
+    ).get<MapsService>(MapsService);
+
+    const searchRequest = {
+      searchQuery: '1%20charlotte%20street',
+      options: { limit: 1 },
+    };
+
+    expect(mapsService.search(searchRequest)).rejects.toThrow(
+      'TomTom API url / path is missing in config',
+    );
+  });
+
+  it('should handle scenario where tomtom key is missing', async () => {
+    const incompleteMockConfig = {
+      ...mockConfig,
+      tomtom: {
+        ...mockConfig.tomtom,
+        key: '',
+      },
+    };
+
+    const mapsService = (
+      await createMockModule(incompleteMockConfig)
+    ).get<MapsService>(MapsService);
+
+    const searchRequest = {
+      searchQuery: '1%20charlotte%20street',
+      options: { limit: 1 },
+    };
+
+    expect(mapsService.search(searchRequest)).rejects.toThrow(
+      'TomTom API key is missing in config',
+    );
   });
 });

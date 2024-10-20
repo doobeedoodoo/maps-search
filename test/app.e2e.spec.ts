@@ -5,11 +5,14 @@ import { HttpExceptionFilter } from '../src/filters';
 import * as pactum from 'pactum';
 import { SearchResponse } from 'src/search/types';
 
+const DEFAULT_PACTUM_SERVER_PORT = 3333;
+
 describe('app end-to-end', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    const PACTUM_SERVER_PORT = parseInt(process.env.PACTUM_SERVER_PORT);
+    const PACTUM_SERVER_PORT =
+      parseInt(process.env.PACTUM_SERVER_PORT) || DEFAULT_PACTUM_SERVER_PORT;
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],

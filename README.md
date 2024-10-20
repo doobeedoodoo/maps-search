@@ -21,7 +21,9 @@ An .env.dist file that contains the environment variables required is included.
 
 ```bash
 TOMTOM_API_URL="https://api.tomtom.com"
+TOMTOM_API_PATH="/search/2/search"
 TOMTOM_API_KEY="replace-me"
+TOMTOM_API_RESPONSE_EXT="json"
 COUNTRIES="AU"
 DEFAULT_SEARCH_RESULTS_LIMIT=100
 PORT=3000
