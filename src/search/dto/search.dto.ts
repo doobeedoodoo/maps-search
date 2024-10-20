@@ -1,14 +1,21 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class SearchParametersDto {
   @ApiProperty({
     example: '1 charlotte street',
     description: 'The search query',
   })
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
+  @MaxLength(64)
   searchQuery: string;
 }
 
