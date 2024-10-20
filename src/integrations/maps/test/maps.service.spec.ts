@@ -1,9 +1,9 @@
 import { ConfigService } from '@nestjs/config';
-import { MapsService } from './maps.service';
 import { createMock } from '@golevelup/ts-jest';
 import { Test } from '@nestjs/testing';
 import axios from 'axios';
-import { mockTomTomApiResponseData } from './mocks/maps.service.mocks';
+import { MapsService } from '../maps.service';
+import { mockTomTomApiResponseData } from '../../../mocks/tomtom.mocks';
 
 const mockConfigService = () =>
   createMock<ConfigService>({
