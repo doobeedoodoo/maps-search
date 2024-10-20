@@ -4,7 +4,6 @@ import {
   ExecutionContext,
   CallHandler,
   HttpException,
-  HttpStatus,
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -34,23 +33,5 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
       },
       data: res,
     };
-  }
-
-  handleError(exception: HttpException, context: ExecutionContext) {
-    const ctx = context.switchToHttp();
-    const response = ctx.getResponse();
-    const request = ctx.getRequest();
-
-    const statusCode =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
-
-    response.status(statusCode).json({
-      statusCode,
-      timestamp: new Date().toISOString(),
-      path: request.url,
-      message: exception.message,
-    });
   }
 }
