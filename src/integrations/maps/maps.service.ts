@@ -33,7 +33,7 @@ export class MapsService {
 
     try {
       const response = await axios.get(
-        `${tomTomApiUrl}/search/2/search/${searchQuery}.json'`,
+        `${tomTomApiUrl}/search/2/search/${searchQuery}.json`,
         {
           params: {
             key: tomTomApiKey,
