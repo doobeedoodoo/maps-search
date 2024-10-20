@@ -49,12 +49,40 @@ describe('app end-to-end', () => {
         });
     });
 
-    it.skip('handles optional query parameters correctly', () => {
-      return pactum.spec().get('/search/brisbane').expectStatus(200);
+    it('handles optional query parameters correctly', () => {
+      return pactum
+        .spec()
+        .get('/search/1%20charlotte%20street')
+        .withQueryParams('limit', 1)
+        .expectStatus(200)
+        .expect((context) => {
+          const responseBody = context.res.body;
+          const meta = responseBody.meta;
+          const firstElement = responseBody.data[0];
+
+          expect(responseBody).toBeDefined();
+          expect(meta).toHaveProperty('path');
+          expect(meta).toHaveProperty('count');
+          expect(meta).toHaveProperty('count', 1);
+          expect(firstElement).toHaveProperty('placeId');
+          expect(firstElement).toHaveProperty('streetNumber');
+          expect(firstElement).toHaveProperty('countryCode');
+          expect(firstElement).toHaveProperty('country');
+          expect(firstElement).toHaveProperty('freeformAddress');
+          expect(firstElement).toHaveProperty('municipality');
+        });
     });
 
-    it.skip('handles invalid search queries', () => {
-      return pactum.spec().get('/search/brisbane').expectStatus(200);
+    it('handles missing search query', () => {
+      return pactum.spec().get('/search').expectStatus(404);
+    });
+
+    it('handles invalid search options', () => {
+      return pactum
+        .spec()
+        .get('/search/1%20charlotte%20street')
+        .withQueryParams('limit', 'abc') // invalid value for limit
+        .expectStatus(400);
     });
   });
 });
