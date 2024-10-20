@@ -3,6 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from '../src/app.module';
 import { HttpExceptionFilter } from '../src/filters';
 import * as pactum from 'pactum';
+import { SearchResponse } from 'src/search/types';
 
 describe('app end-to-end', () => {
   let app: INestApplication;
@@ -70,6 +71,20 @@ describe('app end-to-end', () => {
           expect(firstElement).toHaveProperty('country');
           expect(firstElement).toHaveProperty('freeformAddress');
           expect(firstElement).toHaveProperty('municipality');
+        });
+    });
+
+    it('makes sure all results are from AU', () => {
+      return pactum
+        .spec()
+        .get('/search/smith')
+        .expectStatus(200)
+        .expect((context) => {
+          const responseBodyData = context.res.body.data;
+
+          responseBodyData.map((place: SearchResponse) => {
+            expect(place.countryCode).toBe('AU');
+          });
         });
     });
 
