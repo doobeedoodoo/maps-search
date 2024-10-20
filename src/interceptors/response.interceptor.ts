@@ -9,7 +9,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export type Response<T> = {
-  meta: any; // TODO: update
+  meta: {
+    path: string;
+    count: number;
+  };
   data: T;
 };
 
