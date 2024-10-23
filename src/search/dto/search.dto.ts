@@ -5,7 +5,9 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Max,
   MaxLength,
+  Min,
 } from 'class-validator';
 
 export class SearchParametersDto {
@@ -27,5 +29,7 @@ export class SearchOptionsDto {
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
+  @Min(1)
+  @Max(100)
   limit: number;
 }
